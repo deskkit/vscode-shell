@@ -1,1 +1,71 @@
-/* tokens and chrome styles added in later tasks */
+/* ── VS Code Design Tokens ── */
+:root {
+  --vscode-editor-bg: #ffffff;
+  --vscode-sidebar-bg: #f3f3f3;
+  --vscode-activitybar-bg: #2c2c2c;
+  --vscode-statusbar-bg: #007acc;
+  --vscode-hover-bg: #e8e8e8;
+  --vscode-selected-bg: #e4e6f1;
+  --vscode-border: #d0d0d0;
+  --vscode-text-primary: #333333;
+  --vscode-text-secondary: #666666;
+  --vscode-text-highlight: #000000;
+  --vscode-success: #16a34a;
+  --vscode-error: #dc2626;
+  --vscode-input-bg: #ffffff;
+  --vscode-input-border: #c0c0c0;
+  --vscode-table-header-bg: #f5f5f5;
+  --vscode-table-row-hover: #f5f5f5;
+  --vscode-table-border: #e8e8e8;
+  --vscode-modal-bg: #ffffff;
+  --vscode-modal-title: #000000;
+}
+
+.dark {
+  --vscode-editor-bg: #1e1e1e;
+  --vscode-sidebar-bg: #252526;
+  --vscode-activitybar-bg: #333333;
+  --vscode-statusbar-bg: #007acc;
+  --vscode-hover-bg: #2a2d2e;
+  --vscode-selected-bg: #37373d;
+  --vscode-border: #404040;
+  --vscode-text-primary: #cccccc;
+  --vscode-text-secondary: #999999;
+  --vscode-text-highlight: #ffffff;
+  --vscode-success: #4ade80;
+  --vscode-error: #f87171;
+  --vscode-input-bg: #252526;
+  --vscode-input-border: #555555;
+  --vscode-table-header-bg: #2d2d2d;
+  --vscode-table-row-hover: #2a2d2e;
+  --vscode-table-border: #404040;
+  --vscode-modal-bg: #252526;
+  --vscode-modal-title: #ffffff;
+}
+
+:root, html, body {
+  overscroll-behavior: none;
+  height: 100%;
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background-color: var(--vscode-editor-bg);
+  color: var(--vscode-text-primary);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--vscode-editor-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4f4f4f;
+}

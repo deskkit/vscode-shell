@@ -132,3 +132,69 @@ body {
   line-height: 1;
   display: flex;
 }
+
+.vsc-sidebar {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--vscode-sidebar-bg);
+  border-right: 1px solid var(--vscode-border);
+  color: var(--vscode-text-primary);
+  min-height: 0;
+}
+
+.vsc-sidebar__title {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--vscode-text-secondary);
+}
+
+.vsc-sidebar__nav {
+  flex: 1;
+  overflow: auto;
+  padding: 4px 0;
+}
+
+.vsc-sidebar__item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  color: var(--vscode-text-primary);
+  font-size: 13px;
+  text-align: left;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.vsc-sidebar__item:hover {
+  background: var(--vscode-hover-bg);
+}
+
+.vsc-sidebar__item.is-active {
+  background: var(--vscode-selected-bg);
+  color: var(--vscode-text-highlight);
+}
+
+.vsc-sidebar__group-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: var(--vscode-text-secondary);
+  text-transform: uppercase;
+}
+
+.vsc-sidebar__footer {
+  border-top: 1px solid var(--vscode-border);
+  padding: 8px 12px;
+}

@@ -246,3 +246,43 @@ body {
   background: var(--vscode-hover-bg);
   opacity: 1;
 }
+
+.vsc-status-bar {
+  height: 22px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 8px;
+  background: var(--vscode-statusbar-bg);
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.vsc-status-bar__left,
+.vsc-status-bar__center,
+.vsc-status-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.vsc-status-bar__center {
+  flex: 1;
+  justify-content: center;
+}
+
+.vsc-status-bar__theme {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0 4px;
+}
+
+.vsc-status-bar__theme:hover {
+  text-decoration: underline;
+}

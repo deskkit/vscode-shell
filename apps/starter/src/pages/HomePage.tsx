@@ -1,0 +1,20 @@
+export function HomePage() {
+  return (
+    <div style={{ padding: 16 }}>
+      <h1 style={{ margin: '0 0 8px', fontSize: 18 }}>Home</h1>
+      <p style={{ margin: '0 0 16px', color: 'var(--vscode-text-secondary)' }}>
+        Starter desktop shell powered by @vscode-shell/ui.
+      </p>
+      <div
+        style={{
+          padding: 16,
+          borderRadius: 8,
+          background: 'var(--vscode-sidebar-bg)',
+          border: '1px solid var(--vscode-border)',
+        }}
+      >
+        Open Explorer or Settings from the activity bar. Use tabs to switch pages.
+      </div>
+    </div>
+  );
+}

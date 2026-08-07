@@ -1,35 +1,150 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useMemo, useState } from 'react';
+import {
+  ActivityBar,
+  PageTabs,
+  Sidebar,
+  StatusBar,
+  Workbench,
+  setTheme,
+  type ActivityItem,
+  type PageTab,
+  type SidebarItem,
+  type ThemeMode,
+} from '@vscode-shell/ui';
+import { HiHome, HiFolder, HiCog } from 'react-icons/hi';
+import { HomePage } from './pages/HomePage';
+import { ExplorerPage } from './pages/ExplorerPage';
+import { SettingsPage } from './pages/SettingsPage';
 
-function App() {
-  const [count, setCount] = useState(0)
+const activities: ActivityItem[] = [
+  { id: 'home', label: 'Home', icon: <HiHome /> },
+  { id: 'explorer', label: 'Explorer', icon: <HiFolder /> },
+  { id: 'settings', label: 'Settings', icon: <HiCog />, position: 'bottom' },
+];
+
+const sidebars: Record<string, { title: string; items: SidebarItem[] }> = {
+  home: {
+    title: 'Home',
+    items: [{ id: 'home', label: 'Welcome' }],
+  },
+  explorer: {
+    title: 'Explorer',
+    items: [
+      { id: 'files', label: 'Files' },
+      { id: 'search', label: 'Search' },
+    ],
+  },
+  settings: {
+    title: 'Settings',
+    items: [
+      {
+        id: 'prefs',
+        label: 'Preferences',
+        children: [
+          { id: 'general', label: 'General' },
+          { id: 'appearance', label: 'Appearance' },
+        ],
+      },
+    ],
+  },
+};
+
+const pageMeta: Record<string, { title: string; view: 'home' | 'explorer' | 'settings' }> = {
+  home: { title: 'Home', view: 'home' },
+  files: { title: 'Files', view: 'explorer' },
+  search: { title: 'Search', view: 'explorer' },
+  general: { title: 'General', view: 'settings' },
+  appearance: { title: 'Appearance', view: 'settings' },
+};
+
+export default function App() {
+  const [moduleId, setModuleId] = useState('home');
+  const [sidebarId, setSidebarId] = useState('home');
+  const [tabs, setTabs] = useState<PageTab[]>([
+    { id: 'home', title: 'Home', closable: false },
+  ]);
+  const [activeTabId, setActiveTabId] = useState('home');
+  const [theme, setThemeState] = useState<ThemeMode>('dark');
+
+  const sidebar = sidebars[moduleId];
+
+  const openPage = (id: string) => {
+    const meta = pageMeta[id];
+    if (!meta) return;
+    setSidebarId(id);
+    setTabs((prev) =>
+      prev.some((t) => t.id === id)
+        ? prev
+        : [...prev, { id, title: meta.title, closable: id !== 'home' }],
+    );
+    setActiveTabId(id);
+  };
+
+  const view = pageMeta[activeTabId]?.view ?? 'home';
+
+  const editor = useMemo(() => {
+    if (view === 'explorer') return <ExplorerPage title={pageMeta[activeTabId]?.title} />;
+    if (view === 'settings') return <SettingsPage title={pageMeta[activeTabId]?.title} />;
+    return <HomePage />;
+  }, [view, activeTabId]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Workbench
+      activityBar={
+        <ActivityBar
+          items={activities}
+          activeId={moduleId}
+          onChange={(id) => {
+            setModuleId(id);
+            const first = sidebars[id].items[0];
+            const leaf = first.children?.[0]?.id ?? first.id;
+            openPage(leaf);
+          }}
+          logo={<span style={{ fontWeight: 700 }}>VS</span>}
+          onLogoClick={() => {
+            setModuleId('home');
+            openPage('home');
+          }}
+        />
+      }
+      sidebar={
+        <Sidebar
+          title={sidebar.title}
+          items={sidebar.items}
+          activeId={sidebarId}
+          onChange={openPage}
+        />
+      }
+      tabs={
+        <PageTabs
+          tabs={tabs}
+          activeId={activeTabId}
+          onSelect={setActiveTabId}
+          onClose={(id) => {
+            setTabs((prev) => {
+              const next = prev.filter((t) => t.id !== id);
+              if (activeTabId === id) {
+                setActiveTabId(next[next.length - 1]?.id ?? 'home');
+              }
+              return next;
+            });
+          }}
+        />
+      }
+      statusBar={
+        <StatusBar
+          left={<span>Ready</span>}
+          right={<span>v0.1.0</span>}
+          showThemeToggle
+          theme={theme}
+          onThemeChange={(next) => {
+            setTheme(next);
+            setThemeState(next);
+          }}
+        />
+      }
+    >
+      {editor}
+    </Workbench>
+  );
 }
-
-export default App

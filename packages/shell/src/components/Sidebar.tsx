@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import type { SidebarItem, SidebarProps } from '../types';
+import { Scrollbar } from './Scrollbar';
 
 export const Sidebar: FC<SidebarProps> = ({
   title,
@@ -41,7 +42,15 @@ export const Sidebar: FC<SidebarProps> = ({
   return (
     <aside className="vsc-sidebar" style={{ width }}>
       {title ? <div className="vsc-sidebar__title">{title}</div> : null}
-      <nav className="vsc-sidebar__nav">{renderItems(items)}</nav>
+      <div className="vsc-sidebar__nav">
+        <Scrollbar
+          orientation="vertical"
+          className="vsc-sidebar__scroll"
+          contentKey={JSON.stringify(items)}
+        >
+          {renderItems(items)}
+        </Scrollbar>
+      </div>
       {footer ? <div className="vsc-sidebar__footer">{footer}</div> : null}
     </aside>
   );

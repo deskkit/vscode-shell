@@ -170,7 +170,15 @@ body {
 
 .vsc-sidebar__nav {
   flex: 1;
-  overflow: auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.vsc-sidebar__scroll {
+  height: 100%;
+}
+
+.vsc-sidebar__scroll .vsc-scrollbar__viewport {
   padding: 4px 0;
 }
 
@@ -225,55 +233,105 @@ body {
   -webkit-user-select: none;
 }
 
-/* Native overlay scrollbars (esp. macOS) ignore ::-webkit-scrollbar — hide them. */
-.vsc-page-tabs__scroller {
+.vsc-page-tabs__scroll {
   flex: 1;
   min-height: 0;
+}
+
+.vsc-page-tabs__scroller {
   display: flex;
   align-items: stretch;
-  overflow-x: auto;
-  overflow-y: hidden;
+}
+
+/* ── Shared Scrollbar ── */
+.vsc-scrollbar {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+}
+
+.vsc-scrollbar--horizontal {
+  flex-direction: column;
+}
+
+.vsc-scrollbar--vertical {
+  flex-direction: column;
+  height: 100%;
+}
+
+.vsc-scrollbar__viewport {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-.vsc-page-tabs__scroller::-webkit-scrollbar {
+.vsc-scrollbar--horizontal .vsc-scrollbar__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.vsc-scrollbar--vertical .vsc-scrollbar__viewport {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.vsc-scrollbar__viewport::-webkit-scrollbar {
   display: none;
   width: 0;
   height: 0;
 }
 
-.vsc-page-tabs__scrollbar {
+.vsc-scrollbar__track {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
 }
 
-.vsc-page-tabs__scrollbar.is-visible {
+.vsc-scrollbar__track.is-visible {
   opacity: 1;
 }
 
-.vsc-page-tabs__scrollbar-thumb {
+.vsc-scrollbar--horizontal .vsc-scrollbar__track {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+}
+
+.vsc-scrollbar--vertical .vsc-scrollbar__track {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 2px;
+}
+
+.vsc-scrollbar__thumb {
   position: absolute;
   top: 0;
   left: 0;
-  height: 2px;
   background: var(--vscode-scrollbar-thumb);
   border-radius: 1px;
   pointer-events: none;
   cursor: default;
 }
 
-.vsc-page-tabs__scrollbar.is-visible .vsc-page-tabs__scrollbar-thumb {
+.vsc-scrollbar--horizontal .vsc-scrollbar__thumb {
+  height: 2px;
+}
+
+.vsc-scrollbar--vertical .vsc-scrollbar__thumb {
+  width: 2px;
+}
+
+.vsc-scrollbar__track.is-visible .vsc-scrollbar__thumb {
   pointer-events: auto;
 }
 
-.vsc-page-tabs__scrollbar-thumb:hover {
+.vsc-scrollbar__thumb:hover {
   background: var(--vscode-scrollbar-thumb-hover);
 }
 

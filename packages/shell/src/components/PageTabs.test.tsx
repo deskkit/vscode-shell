@@ -37,7 +37,7 @@ describe('PageTabs', () => {
     expect(screen.queryByRole('button', { name: 'Close Home' })).toBeNull();
   });
 
-  it('shows a custom thin scrollbar when tabs overflow', async () => {
+  it('uses shared Scrollbar for overflow', async () => {
     const { container } = render(
       <PageTabs tabs={tabs} activeId="home" onSelect={() => {}} onClose={() => {}} />,
     );
@@ -47,12 +47,11 @@ describe('PageTabs', () => {
     Object.defineProperty(scroller, 'scrollLeft', { configurable: true, writable: true, value: 0 });
     fireEvent.scroll(scroller);
     await waitFor(() => {
-      expect(container.querySelector('.vsc-page-tabs__scrollbar')).toBeTruthy();
+      expect(container.querySelector('.vsc-scrollbar__track')).toHaveClass('is-visible');
     });
-    expect(container.querySelector('.vsc-page-tabs__scrollbar')).toHaveClass('is-visible');
   });
 
-  it('hides the custom scrollbar after idle', async () => {
+  it('hides scrollbar after idle via shared Scrollbar', async () => {
     vi.useFakeTimers();
     const { container } = render(
       <PageTabs tabs={tabs} activeId="home" onSelect={() => {}} onClose={() => {}} />,
@@ -65,12 +64,12 @@ describe('PageTabs', () => {
     await act(async () => {
       fireEvent.scroll(scroller);
     });
-    expect(container.querySelector('.vsc-page-tabs__scrollbar')).toHaveClass('is-visible');
+    expect(container.querySelector('.vsc-scrollbar__track')).toHaveClass('is-visible');
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(1000);
     });
-    expect(container.querySelector('.vsc-page-tabs__scrollbar')).not.toHaveClass('is-visible');
+    expect(container.querySelector('.vsc-scrollbar__track')).not.toHaveClass('is-visible');
     vi.useRealTimers();
   });
 });

@@ -61,3 +61,15 @@ export type WorkbenchProps = {
   statusBar?: ReactNode;
   children: ReactNode;
 };
+
+export type ScrollbarOrientation = 'horizontal' | 'vertical';
+
+export type ScrollbarProps = {
+  children: ReactNode;
+  orientation?: ScrollbarOrientation;
+  className?: string;
+  viewportClassName?: string;
+  hideDelayMs?: number;
+  /** Recompute metrics when this value changes (e.g. item list identity). */
+  contentKey?: unknown;
+};

@@ -68,16 +68,39 @@ export default function App() {
 
   const sidebar = sidebars[moduleId];
 
-  const openPage = (id: string) => {
+  const activatePage = (id: string) => {
     const meta = pageMeta[id];
     if (!meta) return;
     setSidebarId(id);
+    setModuleId(meta.view);
+    setActiveTabId(id);
+  };
+
+  const openPage = (id: string) => {
+    const meta = pageMeta[id];
+    if (!meta) return;
     setTabs((prev) =>
       prev.some((t) => t.id === id)
         ? prev
         : [...prev, { id, title: meta.title, closable: id !== 'home' }],
     );
-    setActiveTabId(id);
+    activatePage(id);
+  };
+
+  const selectTab = (id: string) => {
+    activatePage(id);
+  };
+
+  const closeTab = (id: string) => {
+    if (id === 'home') return;
+    setTabs((prev) => {
+      const next = prev.filter((t) => t.id !== id);
+      if (activeTabId === id) {
+        const fallbackId = next[next.length - 1]?.id ?? 'home';
+        activatePage(fallbackId);
+      }
+      return next;
+    });
   };
 
   const view = pageMeta[activeTabId]?.view ?? 'home';
@@ -95,14 +118,12 @@ export default function App() {
           items={activities}
           activeId={moduleId}
           onChange={(id) => {
-            setModuleId(id);
             const first = sidebars[id].items[0];
             const leaf = first.children?.[0]?.id ?? first.id;
             openPage(leaf);
           }}
           logo={<span style={{ fontWeight: 700 }}>VS</span>}
           onLogoClick={() => {
-            setModuleId('home');
             openPage('home');
           }}
         />
@@ -119,16 +140,8 @@ export default function App() {
         <PageTabs
           tabs={tabs}
           activeId={activeTabId}
-          onSelect={setActiveTabId}
-          onClose={(id) => {
-            setTabs((prev) => {
-              const next = prev.filter((t) => t.id !== id);
-              if (activeTabId === id) {
-                setActiveTabId(next[next.length - 1]?.id ?? 'home');
-              }
-              return next;
-            });
-          }}
+          onSelect={selectTab}
+          onClose={closeTab}
         />
       }
       statusBar={

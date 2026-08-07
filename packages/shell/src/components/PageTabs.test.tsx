@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PageTabs } from './PageTabs';
 
@@ -35,5 +35,42 @@ describe('PageTabs', () => {
   it('hides close when closable is false', () => {
     render(<PageTabs tabs={tabs} activeId="home" onSelect={() => {}} onClose={() => {}} />);
     expect(screen.queryByRole('button', { name: 'Close Home' })).toBeNull();
+  });
+
+  it('shows a custom thin scrollbar when tabs overflow', async () => {
+    const { container } = render(
+      <PageTabs tabs={tabs} activeId="home" onSelect={() => {}} onClose={() => {}} />,
+    );
+    const scroller = container.querySelector('.vsc-page-tabs__scroller') as HTMLDivElement;
+    Object.defineProperty(scroller, 'clientWidth', { configurable: true, value: 80 });
+    Object.defineProperty(scroller, 'scrollWidth', { configurable: true, value: 240 });
+    Object.defineProperty(scroller, 'scrollLeft', { configurable: true, writable: true, value: 0 });
+    fireEvent.scroll(scroller);
+    await waitFor(() => {
+      expect(container.querySelector('.vsc-page-tabs__scrollbar')).toBeTruthy();
+    });
+    expect(container.querySelector('.vsc-page-tabs__scrollbar')).toHaveClass('is-visible');
+  });
+
+  it('hides the custom scrollbar after idle', async () => {
+    vi.useFakeTimers();
+    const { container } = render(
+      <PageTabs tabs={tabs} activeId="home" onSelect={() => {}} onClose={() => {}} />,
+    );
+    const scroller = container.querySelector('.vsc-page-tabs__scroller') as HTMLDivElement;
+    Object.defineProperty(scroller, 'clientWidth', { configurable: true, value: 80 });
+    Object.defineProperty(scroller, 'scrollWidth', { configurable: true, value: 240 });
+    Object.defineProperty(scroller, 'scrollLeft', { configurable: true, writable: true, value: 0 });
+
+    await act(async () => {
+      fireEvent.scroll(scroller);
+    });
+    expect(container.querySelector('.vsc-page-tabs__scrollbar')).toHaveClass('is-visible');
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1000);
+    });
+    expect(container.querySelector('.vsc-page-tabs__scrollbar')).not.toHaveClass('is-visible');
+    vi.useRealTimers();
   });
 });

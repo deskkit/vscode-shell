@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-07  
 **Status:** Ready for review  
-**Repo:** `/Users/melon/Projects/melon/ai/vscode-shell` (standalone; not inside os-kit or cb-monitor)
+**Repo:** `/Users/melon/Projects/melon/vscode-shell` (standalone; not inside os-kit or cb-monitor)
 
 ## Problem
 

@@ -3,6 +3,9 @@
   --vscode-editor-bg: #ffffff;
   --vscode-sidebar-bg: #f3f3f3;
   --vscode-activitybar-bg: #2c2c2c;
+  /* Activity bar stays dark in Light+; keep light foreground. */
+  --vscode-activitybar-fg: #ffffff;
+  --vscode-activitybar-hover-bg: rgba(255, 255, 255, 0.12);
   --vscode-statusbar-bg: #007acc;
   --vscode-hover-bg: #e8e8e8;
   --vscode-selected-bg: #e4e6f1;
@@ -25,6 +28,8 @@
   --vscode-editor-bg: #1e1e1e;
   --vscode-sidebar-bg: #252526;
   --vscode-activitybar-bg: #333333;
+  --vscode-activitybar-fg: #ffffff;
+  --vscode-activitybar-hover-bg: rgba(255, 255, 255, 0.12);
   --vscode-statusbar-bg: #007acc;
   --vscode-hover-bg: #2a2d2e;
   --vscode-selected-bg: #37373d;
@@ -79,7 +84,7 @@ body {
   padding: 4px 0;
   background: var(--vscode-activitybar-bg);
   border-right: 1px solid var(--vscode-border);
-  color: var(--vscode-text-primary);
+  color: var(--vscode-activitybar-fg);
 }
 
 .vsc-activity-bar__top {
@@ -114,7 +119,7 @@ body {
 .vsc-activity-bar__item:hover,
 .vsc-activity-bar__item.is-active {
   opacity: 1;
-  background: color-mix(in srgb, var(--vscode-hover-bg) 40%, transparent);
+  background: var(--vscode-activitybar-hover-bg);
 }
 
 .vsc-activity-bar__indicator {
@@ -124,7 +129,7 @@ body {
   bottom: 6px;
   width: 2px;
   border-radius: 0 2px 2px 0;
-  background: var(--vscode-text-highlight);
+  background: var(--vscode-activitybar-fg);
 }
 
 .vsc-activity-bar__icon {

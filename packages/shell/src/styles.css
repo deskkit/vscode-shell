@@ -69,3 +69,66 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #4f4f4f;
 }
+
+.vsc-activity-bar {
+  width: 48px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0;
+  background: var(--vscode-activitybar-bg);
+  border-right: 1px solid var(--vscode-border);
+  color: var(--vscode-text-primary);
+}
+
+.vsc-activity-bar__top {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vsc-activity-bar__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vsc-activity-bar__logo,
+.vsc-activity-bar__item {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.vsc-activity-bar__logo:hover,
+.vsc-activity-bar__item:hover,
+.vsc-activity-bar__item.is-active {
+  opacity: 1;
+  background: color-mix(in srgb, var(--vscode-hover-bg) 40%, transparent);
+}
+
+.vsc-activity-bar__indicator {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 0 2px 2px 0;
+  background: var(--vscode-text-highlight);
+}
+
+.vsc-activity-bar__icon {
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+}

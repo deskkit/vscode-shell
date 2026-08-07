@@ -1,0 +1,12 @@
+{
+  "name": "vscode-shell",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r run build",
+    "test": "pnpm --filter @vscode-shell/ui test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

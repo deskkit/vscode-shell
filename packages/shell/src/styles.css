@@ -198,3 +198,51 @@ body {
   border-top: 1px solid var(--vscode-border);
   padding: 8px 12px;
 }
+
+.vsc-page-tabs {
+  height: 35px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  overflow-x: auto;
+  background: var(--vscode-sidebar-bg);
+  border-bottom: 1px solid var(--vscode-border);
+}
+
+.vsc-page-tabs__tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  padding: 0 12px;
+  border-right: 1px solid var(--vscode-border);
+  border-top: 2px solid transparent;
+  color: var(--vscode-text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  background: transparent;
+}
+
+.vsc-page-tabs__tab.is-active {
+  background: var(--vscode-editor-bg);
+  color: var(--vscode-text-highlight);
+  border-top-color: var(--vscode-statusbar-bg);
+}
+
+.vsc-page-tabs__close {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  line-height: 1;
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+.vsc-page-tabs__close:hover {
+  background: var(--vscode-hover-bg);
+  opacity: 1;
+}

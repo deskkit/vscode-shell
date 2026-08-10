@@ -1,0 +1,32 @@
+import { describe, expect, it } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { TitleBar } from './TitleBar';
+
+describe('TitleBar', () => {
+  it('renders center and right slots', () => {
+    render(<TitleBar center={<span>App</span>} right={<button type="button">Go</button>} />);
+    expect(screen.getByText('App')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Go' })).toBeInTheDocument();
+  });
+
+  it('marks root as tauri drag region', () => {
+    const { container } = render(<TitleBar center="T" />);
+    const root = container.querySelector('.vsc-titlebar');
+    expect(root).toHaveAttribute('data-tauri-drag-region');
+  });
+
+  it('marks right zone as no-drag', () => {
+    const { container } = render(<TitleBar right={<button type="button">X</button>} />);
+    const right = container.querySelector('.vsc-titlebar__right');
+    expect(right).toHaveClass('vsc-titlebar__no-drag');
+    expect(right).toHaveAttribute('data-tauri-drag-region', 'false');
+  });
+
+  it('renders empty zones without crashing when slots omitted', () => {
+    const { container } = render(<TitleBar />);
+    expect(container.querySelector('.vsc-titlebar')).toBeTruthy();
+    expect(container.querySelector('.vsc-titlebar__left')).toBeTruthy();
+    expect(container.querySelector('.vsc-titlebar__center')).toBeTruthy();
+    expect(container.querySelector('.vsc-titlebar__right')).toBeTruthy();
+  });
+});

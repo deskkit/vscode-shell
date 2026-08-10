@@ -54,6 +54,12 @@ export type StatusBarProps = {
   onThemeChange?: (theme: 'light' | 'dark') => void;
 };
 
+export type TitleBarProps = {
+  center?: ReactNode;
+  right?: ReactNode;
+  className?: string;
+};
+
 export type WorkbenchProps = {
   activityBar: ReactNode;
   sidebar?: ReactNode | null;

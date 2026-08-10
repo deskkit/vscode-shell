@@ -4,6 +4,7 @@ import {
   PageTabs,
   Sidebar,
   StatusBar,
+  TitleBar,
   Workbench,
   setTheme,
   type ActivityItem,
@@ -11,7 +12,7 @@ import {
   type SidebarItem,
   type ThemeMode,
 } from '@vscode-shell/ui';
-import { HiHome, HiFolder, HiCog } from 'react-icons/hi';
+import { HiHome, HiFolder, HiCog, HiSun, HiMoon } from 'react-icons/hi';
 import { HomePage } from './pages/HomePage';
 import { ExplorerPage } from './pages/ExplorerPage';
 import { SettingsPage } from './pages/SettingsPage';
@@ -113,6 +114,34 @@ export default function App() {
 
   return (
     <Workbench
+      titleBar={
+        <TitleBar
+          center={<span>VS Code Shell</span>}
+          right={
+            <button
+              type="button"
+              aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+              title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+              onClick={() => {
+                const next = theme === 'dark' ? 'light' : 'dark';
+                setTheme(next);
+                setThemeState(next);
+              }}
+              style={{
+                border: 0,
+                background: 'transparent',
+                color: 'inherit',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: 4,
+              }}
+            >
+              {theme === 'dark' ? <HiSun size={14} /> : <HiMoon size={14} />}
+            </button>
+          }
+        />
+      }
       activityBar={
         <ActivityBar
           items={activities}
@@ -145,16 +174,7 @@ export default function App() {
         />
       }
       statusBar={
-        <StatusBar
-          left={<span>Ready</span>}
-          right={<span>v0.1.0</span>}
-          showThemeToggle
-          theme={theme}
-          onThemeChange={(next) => {
-            setTheme(next);
-            setThemeState(next);
-          }}
-        />
+        <StatusBar left={<span>Ready</span>} right={<span>v0.1.0</span>} />
       }
     >
       {editor}

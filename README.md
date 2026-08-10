@@ -10,6 +10,7 @@ Shared VS Code–style desktop chrome for Tauri + React apps.
 | `apps/starter` | `starter` | Tauri + React demo / template |
 
 Design: [docs/superpowers/specs/2026-08-07-vscode-shell-design.md](docs/superpowers/specs/2026-08-07-vscode-shell-design.md)
+TitleBar: [docs/superpowers/specs/2026-08-07-titlebar-design.md](docs/superpowers/specs/2026-08-07-titlebar-design.md)
 
 ## Develop
 
@@ -74,3 +75,38 @@ Map app utility classes to the same CSS variables if desired (not required for c
 ## Library boundary
 
 `@vscode-shell/ui` provides layout chrome only. Keep routes, Tauri events, and component-library theme overrides in the application.
+
+## Custom TitleBar (Tauri)
+
+`TitleBar` is optional UI chrome. Hiding the native title bar is **app configuration**.
+
+### macOS overlay (starter)
+
+Set on `app.windows[0]` in `src-tauri/tauri.conf.json`:
+
+- `titleBarStyle`: `"Overlay"`
+- `hiddenTitle`: `true`
+
+Wire the slot:
+
+```tsx
+<Workbench
+  titleBar={
+    <TitleBar center={<span>My App</span>} right={<button type="button">…</button>} />
+  }
+>
+  …
+</Workbench>
+```
+
+### Drag / no-drag
+
+- Root: `data-tauri-drag-region` (window drag).
+- `right`: already `vsc-titlebar__no-drag` + `data-tauri-drag-region="false"`.
+- Interactive nodes in `center`: add class `vsc-titlebar__no-drag`.
+
+### Traffic lights inset
+
+Default `--vscode-titlebar-traffic-width: 78px`. Without overlay, set to `0px` on `:root`.
+
+Importing `TitleBar` alone does **not** remove the system title bar.

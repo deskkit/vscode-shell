@@ -444,6 +444,9 @@ body {
   color: var(--vscode-titlebar-fg);
   border-bottom: 1px solid var(--vscode-border);
   user-select: none;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  app-region: drag;
   flex-shrink: 0;
   position: relative;
 }
@@ -457,6 +460,7 @@ body {
 .vsc-titlebar__center {
   flex: 1;
   min-width: 0;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -464,14 +468,16 @@ body {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  pointer-events: none;
 }
 
+/* Let the center zone receive drag events; plain title text must not steal hits. */
 .vsc-titlebar__center > * {
-  pointer-events: auto;
+  pointer-events: none;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .vsc-titlebar__right {
@@ -487,6 +493,10 @@ body {
 .vsc-titlebar__no-drag {
   -webkit-app-region: no-drag;
   app-region: no-drag;
+}
+
+.vsc-titlebar__center .vsc-titlebar__no-drag {
+  pointer-events: auto;
 }
 
 .vsc-workbench {

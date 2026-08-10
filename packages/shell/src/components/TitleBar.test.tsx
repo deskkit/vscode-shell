@@ -9,10 +9,12 @@ describe('TitleBar', () => {
     expect(screen.getByRole('button', { name: 'Go' })).toBeInTheDocument();
   });
 
-  it('marks root as tauri drag region', () => {
+  it('marks root and center as tauri drag regions', () => {
     const { container } = render(<TitleBar center="T" />);
     const root = container.querySelector('.vsc-titlebar');
+    const center = container.querySelector('.vsc-titlebar__center');
     expect(root).toHaveAttribute('data-tauri-drag-region');
+    expect(center).toHaveAttribute('data-tauri-drag-region');
   });
 
   it('marks right zone as no-drag', () => {

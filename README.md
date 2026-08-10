@@ -101,9 +101,13 @@ Wire the slot:
 
 ### Drag / no-drag
 
-- Root: `data-tauri-drag-region` (window drag).
+Grant in `src-tauri/capabilities/default.json` (required for Tauri 2):
+
+- `core:window:allow-start-dragging`
+
+- Root / left / center: `data-tauri-drag-region` (window drag). Center children use `pointer-events: none` so title text does not steal the drag hit-target.
 - `right`: already `vsc-titlebar__no-drag` + `data-tauri-drag-region="false"`.
-- Interactive nodes in `center`: add class `vsc-titlebar__no-drag`.
+- Interactive nodes in `center`: add class `vsc-titlebar__no-drag` and set `pointer-events: auto` if needed.
 
 ### Traffic lights inset
 

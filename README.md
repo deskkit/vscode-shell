@@ -91,7 +91,7 @@ Without this import, components render but look unstyled.
 
 Build the UI package first (`pnpm --filter @vscode-shell/ui build`), or point your bundler at the package source if you configure it to compile TS from the dependency.
 
-**Git dependency** (after the repo is on a remote):
+**Git dependency** (GitHub):
 
 ```json
 {
@@ -101,7 +101,19 @@ Build the UI package first (`pnpm --filter @vscode-shell/ui build`), or point yo
 }
 ```
 
-Exact git URL syntax depends on your package manager; pnpm `git+...` with `path:` is preferred.
+pnpm equivalent:
+
+```json
+{
+  "dependencies": {
+    "@vscode-shell/ui": "github:deskkit/vscode-shell#main&path:packages/shell"
+  }
+}
+```
+
+`packages/shell` runs `prepare` → `build` on install (via `tsup`), so you do **not** need a prebuilt `dist` on GitHub. Ensure install scripts are enabled (`ignore-scripts` must be off). The consumer still provides `react` / `react-dom` (peerDependencies).
+
+Exact git URL syntax depends on your package manager; pnpm `github:…` / `git+…` with `path:` is preferred.
 
 ## Optional Tailwind color bridge
 

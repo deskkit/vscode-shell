@@ -15,7 +15,8 @@
   },
   "files": ["dist"],
   "scripts": {
-    "build": "tsup && cp src/styles.css dist/styles.css",
+    "build": "tsup && node ./scripts/copy-styles.mjs",
+    "prepare": "npm run build",
     "test": "vitest run",
     "test:watch": "vitest"
   },

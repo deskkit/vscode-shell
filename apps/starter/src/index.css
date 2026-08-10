@@ -4,3 +4,12 @@ html, body, #root {
   height: 100%;
   margin: 0;
 }
+
+.starter-window-controls__btn:hover {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.starter-window-controls__btn--close:hover {
+  background: #e81123;
+  color: #fff;
+}

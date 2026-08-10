@@ -21,6 +21,54 @@ pnpm --filter @vscode-shell/ui build
 pnpm --filter starter tauri:dev
 ```
 
+## Build
+
+Always build the UI package before packaging the starter (or any consumer):
+
+```bash
+pnpm --filter @vscode-shell/ui build
+```
+
+### Starter — current platform
+
+From the repo root:
+
+```bash
+pnpm --filter starter tauri build
+```
+
+Or from `apps/starter`:
+
+```bash
+pnpm tauri build
+```
+
+Artifacts land under `apps/starter/src-tauri/target/release/bundle/` (platform-specific installers).
+
+### Starter — Windows (cross-compile from macOS / Linux)
+
+Use [cargo-xwin](https://github.com/rust-cross/cargo-xwin) as the Tauri runner to target MSVC Windows without a Windows host:
+
+```bash
+# once per machine
+cargo install cargo-xwin
+rustup target add x86_64-pc-windows-msvc
+```
+
+From `apps/starter`:
+
+```bash
+pnpm tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc
+```
+
+From the repo root (pass args through the filter):
+
+```bash
+pnpm --filter starter tauri build -- --runner cargo-xwin --target x86_64-pc-windows-msvc
+```
+
+Windows bundles appear under `apps/starter/src-tauri/target/x86_64-pc-windows-msvc/release/bundle/`.
+
 Import styles in the app entry:
 
 ```ts
@@ -87,7 +135,17 @@ Set on `app.windows[0]` in `src-tauri/tauri.conf.json`:
 - `titleBarStyle`: `"Overlay"`
 - `hiddenTitle`: `true`
 
-Wire the slot:
+Keeps system traffic lights. Default `--vscode-titlebar-traffic-width: 78px` reserves the left inset.
+
+### Windows / Linux (starter)
+
+`titleBarStyle: Overlay` does **not** replace the native title bar on Windows. Starter instead:
+
+1. In Rust (`src-tauri/src/lib.rs`), on non-macOS: `window.set_decorations(false)`.
+2. Sets `--vscode-titlebar-traffic-width: 0px` (no traffic-light inset).
+3. Renders minimize / maximize / close in `TitleBar.right` via `@tauri-apps/api` (`apps/starter/src/components/WindowControls.tsx`).
+
+### Wire the slot
 
 ```tsx
 <Workbench
@@ -104,13 +162,10 @@ Wire the slot:
 Grant in `src-tauri/capabilities/default.json` (required for Tauri 2):
 
 - `core:window:allow-start-dragging`
+- On Windows / Linux also: `core:window:allow-minimize`, `allow-toggle-maximize`, `allow-close`
 
 - Root / left / center: `data-tauri-drag-region` (window drag). Center children use `pointer-events: none` so title text does not steal the drag hit-target.
 - `right`: already `vsc-titlebar__no-drag` + `data-tauri-drag-region="false"`.
 - Interactive nodes in `center`: add class `vsc-titlebar__no-drag` and set `pointer-events: auto` if needed.
-
-### Traffic lights inset
-
-Default `--vscode-titlebar-traffic-width: 78px`. Without overlay, set to `0px` on `:root`.
 
 Importing `TitleBar` alone does **not** remove the system title bar.

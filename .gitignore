@@ -6,3 +6,4 @@ apps/starter/src-tauri/target
 .worktrees
 .superpowers
 .pnpm-store
+*.code-workspace

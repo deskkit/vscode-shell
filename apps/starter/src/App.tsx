@@ -16,6 +16,8 @@ import { HiHome, HiFolder, HiCog, HiSun, HiMoon } from 'react-icons/hi';
 import { HomePage } from './pages/HomePage';
 import { ExplorerPage } from './pages/ExplorerPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { WindowControls } from './components/WindowControls';
+import { needsCustomWindowControls } from './platform';
 
 const activities: ActivityItem[] = [
   { id: 'home', label: 'Home', icon: <HiHome /> },
@@ -118,27 +120,30 @@ export default function App() {
         <TitleBar
           center={<span>VS Code Shell</span>}
           right={
-            <button
-              type="button"
-              aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-              title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-              onClick={() => {
-                const next = theme === 'dark' ? 'light' : 'dark';
-                setTheme(next);
-                setThemeState(next);
-              }}
-              style={{
-                border: 0,
-                background: 'transparent',
-                color: 'inherit',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                padding: 4,
-              }}
-            >
-              {theme === 'dark' ? <HiSun size={14} /> : <HiMoon size={14} />}
-            </button>
+            <>
+              <button
+                type="button"
+                aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+                title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+                onClick={() => {
+                  const next = theme === 'dark' ? 'light' : 'dark';
+                  setTheme(next);
+                  setThemeState(next);
+                }}
+                style={{
+                  border: 0,
+                  background: 'transparent',
+                  color: 'inherit',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: 4,
+                }}
+              >
+                {theme === 'dark' ? <HiSun size={14} /> : <HiMoon size={14} />}
+              </button>
+              {needsCustomWindowControls() ? <WindowControls /> : null}
+            </>
           }
         />
       }

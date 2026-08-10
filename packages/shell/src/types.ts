@@ -61,6 +61,7 @@ export type TitleBarProps = {
 };
 
 export type WorkbenchProps = {
+  titleBar?: ReactNode;
   activityBar: ReactNode;
   sidebar?: ReactNode | null;
   tabs?: ReactNode;

@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import type { WorkbenchProps } from '../types';
 
 export const Workbench: FC<WorkbenchProps> = ({
+  titleBar,
   activityBar,
   sidebar,
   tabs,
@@ -10,6 +11,7 @@ export const Workbench: FC<WorkbenchProps> = ({
 }) => {
   return (
     <div className="vsc-workbench">
+      {titleBar != null ? titleBar : null}
       <div className="vsc-workbench__body">
         {activityBar}
         {sidebar != null ? <div className="vsc-workbench__sidebar">{sidebar}</div> : null}

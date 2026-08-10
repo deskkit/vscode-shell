@@ -30,4 +30,26 @@ describe('Workbench', () => {
     expect(container.querySelector('.vsc-workbench__sidebar')).toBeNull();
     expect(screen.getByText('EDITOR')).toBeInTheDocument();
   });
+
+  it('renders titleBar as the first child when provided', () => {
+    const { container } = render(
+      <Workbench titleBar={<div data-testid="tb">TITLE</div>} activityBar={<div>AB</div>}>
+        <div>EDITOR</div>
+      </Workbench>,
+    );
+    const root = container.querySelector('.vsc-workbench');
+    expect(root?.children[0]).toHaveAttribute('data-testid', 'tb');
+    expect(root?.children[1]).toHaveClass('vsc-workbench__body');
+  });
+
+  it('keeps body as first child when titleBar is omitted', () => {
+    const { container } = render(
+      <Workbench activityBar={<div>AB</div>}>
+        <div>EDITOR</div>
+      </Workbench>,
+    );
+    expect(container.querySelector('.vsc-workbench')?.children[0]).toHaveClass(
+      'vsc-workbench__body',
+    );
+  });
 });

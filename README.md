@@ -48,7 +48,7 @@ Build the UI package first (`pnpm --filter @vscode-shell/ui build`), or point yo
 ```json
 {
   "dependencies": {
-    "@vscode-shell/ui": "git+https://github.com/<org>/vscode-shell.git#main&path:packages/shell"
+    "@vscode-shell/ui": "git+https://github.com/deskkit/vscode-shell.git#main&path:packages/shell"
   }
 }
 ```

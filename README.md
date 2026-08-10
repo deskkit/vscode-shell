@@ -169,3 +169,7 @@ Grant in `src-tauri/capabilities/default.json` (required for Tauri 2):
 - Interactive nodes in `center`: add class `vsc-titlebar__no-drag` and set `pointer-events: auto` if needed.
 
 Importing `TitleBar` alone does **not** remove the system title bar.
+
+## License
+
+[MIT](./LICENSE) © deskkit

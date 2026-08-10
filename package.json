@@ -1,6 +1,7 @@
 {
   "name": "vscode-shell",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "build": "pnpm -r run build",
     "test": "pnpm --filter @vscode-shell/ui test"

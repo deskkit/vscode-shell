@@ -31,4 +31,18 @@ describe('TitleBar', () => {
     expect(container.querySelector('.vsc-titlebar__center')).toBeTruthy();
     expect(container.querySelector('.vsc-titlebar__right')).toBeTruthy();
   });
+
+  it('renders left slot', () => {
+    render(<TitleBar left={<button type="button">Toggle</button>} />);
+    expect(screen.getByRole('button', { name: 'Toggle' })).toBeInTheDocument();
+  });
+
+  it('marks left actions as no-drag', () => {
+    const { container } = render(
+      <TitleBar left={<button type="button">Toggle</button>} />,
+    );
+    const actions = container.querySelector('.vsc-titlebar__left-actions');
+    expect(actions).toHaveClass('vsc-titlebar__no-drag');
+    expect(actions).toHaveAttribute('data-tauri-drag-region', 'false');
+  });
 });

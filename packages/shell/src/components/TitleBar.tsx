@@ -1,12 +1,21 @@
 import type { FC } from 'react';
 import type { TitleBarProps } from '../types';
 
-export const TitleBar: FC<TitleBarProps> = ({ center, right, className }) => {
+export const TitleBar: FC<TitleBarProps> = ({ left, center, right, className }) => {
   const rootClass = className ? `vsc-titlebar ${className}` : 'vsc-titlebar';
 
   return (
     <header className={rootClass} data-tauri-drag-region>
-      <div className="vsc-titlebar__left" aria-hidden="true" data-tauri-drag-region />
+      <div className="vsc-titlebar__left" data-tauri-drag-region>
+        {left != null ? (
+          <div
+            className="vsc-titlebar__left-actions vsc-titlebar__no-drag"
+            data-tauri-drag-region="false"
+          >
+            {left}
+          </div>
+        ) : null}
+      </div>
       <div className="vsc-titlebar__center" data-tauri-drag-region>
         {center}
       </div>

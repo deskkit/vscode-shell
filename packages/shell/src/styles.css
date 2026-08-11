@@ -475,9 +475,22 @@ a:active {
 }
 
 .vsc-titlebar__left {
-  width: var(--vscode-titlebar-traffic-width);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   flex-shrink: 0;
   height: 100%;
+  padding-left: var(--vscode-titlebar-traffic-width);
+  box-sizing: border-box;
+}
+
+.vsc-titlebar__left-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .vsc-titlebar__center {

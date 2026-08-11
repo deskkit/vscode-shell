@@ -55,6 +55,7 @@ export type StatusBarProps = {
 };
 
 export type TitleBarProps = {
+  left?: ReactNode;
   center?: ReactNode;
   right?: ReactNode;
   className?: string;

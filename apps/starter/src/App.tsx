@@ -13,6 +13,7 @@ import {
   type ThemeMode,
 } from '@vscode-shell/ui';
 import { HiHome, HiFolder, HiCog, HiSun, HiMoon } from 'react-icons/hi';
+import { VscLayoutSidebarLeft } from 'react-icons/vsc';
 import { HomePage } from './pages/HomePage';
 import { ExplorerPage } from './pages/ExplorerPage';
 import { SettingsPage } from './pages/SettingsPage';
@@ -68,6 +69,7 @@ export default function App() {
   ]);
   const [activeTabId, setActiveTabId] = useState('home');
   const [theme, setThemeState] = useState<ThemeMode>('dark');
+  const [sidebarVisible, setSidebarVisible] = useState(true);
 
   const sidebar = sidebars[moduleId];
 
@@ -116,8 +118,29 @@ export default function App() {
 
   return (
     <Workbench
+      sidebarCollapsed={!sidebarVisible}
       titleBar={
         <TitleBar
+          left={
+            <button
+              type="button"
+              aria-label={sidebarVisible ? 'Hide Sidebar' : 'Show Sidebar'}
+              aria-pressed={sidebarVisible}
+              title={sidebarVisible ? 'Hide Sidebar' : 'Show Sidebar'}
+              onClick={() => setSidebarVisible((v) => !v)}
+              style={{
+                border: 0,
+                background: 'transparent',
+                color: 'inherit',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: 4,
+              }}
+            >
+              <VscLayoutSidebarLeft size={14} />
+            </button>
+          }
           center={<span>VS Code Shell</span>}
           right={
             <>

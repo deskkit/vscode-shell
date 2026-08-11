@@ -555,6 +555,14 @@ a:active {
 .vsc-workbench__sidebar {
   display: flex;
   min-height: 0;
+  max-width: 192px;
+  overflow: hidden;
+  transition: max-width 180ms ease;
+}
+
+.vsc-workbench__sidebar.is-collapsed {
+  max-width: 0;
+  pointer-events: none;
 }
 
 .vsc-workbench__main {

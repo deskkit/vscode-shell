@@ -65,6 +65,7 @@ export type WorkbenchProps = {
   titleBar?: ReactNode;
   activityBar: ReactNode;
   sidebar?: ReactNode | null;
+  sidebarCollapsed?: boolean;
   tabs?: ReactNode;
   panel?: ReactNode | null;
   statusBar?: ReactNode;

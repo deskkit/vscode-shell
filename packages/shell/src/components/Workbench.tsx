@@ -5,17 +5,22 @@ export const Workbench: FC<WorkbenchProps> = ({
   titleBar,
   activityBar,
   sidebar,
+  sidebarCollapsed = false,
   tabs,
   panel,
   statusBar,
   children,
 }) => {
+  const sidebarClass = sidebarCollapsed
+    ? 'vsc-workbench__sidebar is-collapsed'
+    : 'vsc-workbench__sidebar';
+
   return (
     <div className="vsc-workbench">
       {titleBar != null ? titleBar : null}
       <div className="vsc-workbench__body">
         {activityBar}
-        {sidebar != null ? <div className="vsc-workbench__sidebar">{sidebar}</div> : null}
+        {sidebar != null ? <div className={sidebarClass}>{sidebar}</div> : null}
         <div className="vsc-workbench__main">
           {tabs}
           <main className="vsc-workbench__editor">{children}</main>

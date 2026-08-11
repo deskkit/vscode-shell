@@ -83,4 +83,43 @@ describe('Workbench', () => {
     );
     expect(container.querySelector('.vsc-workbench__panel')).toBeNull();
   });
+
+  it('adds is-collapsed when sidebarCollapsed is true', () => {
+    const { container } = render(
+      <Workbench
+        activityBar={<div>AB</div>}
+        sidebar={<div>SB</div>}
+        sidebarCollapsed
+      >
+        <div>EDITOR</div>
+      </Workbench>,
+    );
+    const col = container.querySelector('.vsc-workbench__sidebar');
+    expect(col).toHaveClass('is-collapsed');
+    expect(screen.getByText('SB')).toBeInTheDocument();
+  });
+
+  it('does not collapse when sidebarCollapsed is false', () => {
+    const { container } = render(
+      <Workbench
+        activityBar={<div>AB</div>}
+        sidebar={<div>SB</div>}
+        sidebarCollapsed={false}
+      >
+        <div>EDITOR</div>
+      </Workbench>,
+    );
+    expect(container.querySelector('.vsc-workbench__sidebar')).not.toHaveClass(
+      'is-collapsed',
+    );
+  });
+
+  it('ignores sidebarCollapsed when sidebar is null', () => {
+    const { container } = render(
+      <Workbench activityBar={<div>AB</div>} sidebar={null} sidebarCollapsed>
+        <div>EDITOR</div>
+      </Workbench>,
+    );
+    expect(container.querySelector('.vsc-workbench__sidebar')).toBeNull();
+  });
 });

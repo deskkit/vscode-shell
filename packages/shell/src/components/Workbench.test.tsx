@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Workbench } from './Workbench';
+import { Sidebar } from './Sidebar';
 
 describe('Workbench', () => {
   it('renders chrome slots and children', () => {
@@ -112,6 +113,56 @@ describe('Workbench', () => {
     expect(container.querySelector('.vsc-workbench__sidebar')).not.toHaveClass(
       'is-collapsed',
     );
+  });
+
+  it('does not collapse when sidebarCollapsed is omitted', () => {
+    const { container } = render(
+      <Workbench activityBar={<div>AB</div>} sidebar={<div>SB</div>}>
+        <div>EDITOR</div>
+      </Workbench>,
+    );
+    expect(container.querySelector('.vsc-workbench__sidebar')).not.toHaveClass(
+      'is-collapsed',
+    );
+  });
+
+  it('collapses sidebar column width when Sidebar is present', () => {
+    const style = document.createElement('style');
+    style.textContent = `
+      .vsc-workbench__body { display: flex; width: 400px; }
+      .vsc-workbench__sidebar {
+        display: flex;
+        min-width: 0;
+        max-width: 192px;
+        overflow: hidden;
+      }
+      .vsc-workbench__sidebar.is-collapsed { max-width: 0; }
+      .vsc-sidebar { flex-shrink: 0; display: flex; flex-direction: column; }
+    `;
+    document.head.appendChild(style);
+
+    const { container } = render(
+      <Workbench
+        activityBar={<div style={{ width: 48, flexShrink: 0 }}>AB</div>}
+        sidebar={
+          <Sidebar
+            items={[{ id: 'a', label: 'Item A' }]}
+            activeId="a"
+            onChange={() => {}}
+          />
+        }
+        sidebarCollapsed
+      >
+        <div>EDITOR</div>
+      </Workbench>,
+    );
+
+    const col = container.querySelector('.vsc-workbench__sidebar') as HTMLElement;
+    expect(col).toHaveClass('is-collapsed');
+    expect(Number.parseFloat(getComputedStyle(col).maxWidth)).toBe(0);
+    expect(col.getBoundingClientRect().width).toBe(0);
+
+    document.head.removeChild(style);
   });
 
   it('ignores sidebarCollapsed when sidebar is null', () => {

@@ -555,6 +555,7 @@ a:active {
 .vsc-workbench__sidebar {
   display: flex;
   min-height: 0;
+  min-width: 0;
   max-width: 192px;
   overflow: hidden;
   transition: max-width 180ms ease;

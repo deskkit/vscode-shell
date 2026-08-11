@@ -15,6 +15,9 @@
   --vscode-text-primary: #333333;
   --vscode-text-secondary: #666666;
   --vscode-text-highlight: #000000;
+  /* VS Code textLink.foreground / activeForeground (Light+) */
+  --vscode-text-link: #006ab1;
+  --vscode-text-link-active: #005a9e;
   --vscode-success: #16a34a;
   --vscode-error: #dc2626;
   --vscode-input-bg: #ffffff;
@@ -45,6 +48,9 @@
   --vscode-text-primary: #cccccc;
   --vscode-text-secondary: #999999;
   --vscode-text-highlight: #ffffff;
+  /* VS Code textLink.foreground / activeForeground (Dark+) */
+  --vscode-text-link: #3794ff;
+  --vscode-text-link-active: #4daafc;
   --vscode-success: #4ade80;
   --vscode-error: #f87171;
   --vscode-input-bg: #252526;
@@ -68,6 +74,23 @@
 body {
   background-color: var(--vscode-editor-bg);
   color: var(--vscode-text-primary);
+}
+
+/* Text / React Router <Link> — VS Code textLink */
+a {
+  color: var(--vscode-text-link);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--vscode-text-link-active);
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--vscode-text-link-active);
 }
 
 ::-webkit-scrollbar {

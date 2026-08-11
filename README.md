@@ -128,6 +128,7 @@ Map app utility classes to the same CSS variables if desired (not required for c
   --color-vscode-text-primary: var(--vscode-text-primary);
   --color-vscode-text-secondary: var(--vscode-text-secondary);
   --color-vscode-highlight: var(--vscode-text-highlight);
+  --color-vscode-text-link: var(--vscode-text-link);
   --color-vscode-hover: var(--vscode-hover-bg);
 }
 ```

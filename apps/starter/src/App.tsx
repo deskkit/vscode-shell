@@ -181,6 +181,11 @@ export default function App() {
       statusBar={
         <StatusBar left={<span>Ready</span>} right={<span>v0.1.0</span>} />
       }
+      panel={
+        <div style={{ padding: '4px 8px', fontSize: 12 }}>
+          Panel slot
+        </div>
+      }
     >
       {editor}
     </Workbench>

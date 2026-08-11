@@ -20,7 +20,11 @@ export const Workbench: FC<WorkbenchProps> = ({
       {titleBar != null ? titleBar : null}
       <div className="vsc-workbench__body">
         {activityBar}
-        {sidebar != null ? <div className={sidebarClass}>{sidebar}</div> : null}
+        {sidebar != null ? (
+          <div className={sidebarClass} aria-hidden={sidebarCollapsed || undefined}>
+            {sidebar}
+          </div>
+        ) : null}
         <div className="vsc-workbench__main">
           {tabs}
           <main className="vsc-workbench__editor">{children}</main>

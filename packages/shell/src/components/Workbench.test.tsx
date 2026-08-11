@@ -97,6 +97,7 @@ describe('Workbench', () => {
     );
     const col = container.querySelector('.vsc-workbench__sidebar');
     expect(col).toHaveClass('is-collapsed');
+    expect(col).toHaveAttribute('aria-hidden', 'true');
     expect(screen.getByText('SB')).toBeInTheDocument();
   });
 
@@ -110,9 +111,9 @@ describe('Workbench', () => {
         <div>EDITOR</div>
       </Workbench>,
     );
-    expect(container.querySelector('.vsc-workbench__sidebar')).not.toHaveClass(
-      'is-collapsed',
-    );
+    const col = container.querySelector('.vsc-workbench__sidebar');
+    expect(col).not.toHaveClass('is-collapsed');
+    expect(col).not.toHaveAttribute('aria-hidden', 'true');
   });
 
   it('does not collapse when sidebarCollapsed is omitted', () => {
@@ -121,9 +122,9 @@ describe('Workbench', () => {
         <div>EDITOR</div>
       </Workbench>,
     );
-    expect(container.querySelector('.vsc-workbench__sidebar')).not.toHaveClass(
-      'is-collapsed',
-    );
+    const col = container.querySelector('.vsc-workbench__sidebar');
+    expect(col).not.toHaveClass('is-collapsed');
+    expect(col).not.toHaveAttribute('aria-hidden', 'true');
   });
 
   it('collapses sidebar column width when Sidebar is present', () => {

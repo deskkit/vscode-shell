@@ -52,4 +52,35 @@ describe('Workbench', () => {
       'vsc-workbench__body',
     );
   });
+
+  it('renders panel below editor when provided', () => {
+    const { container } = render(
+      <Workbench
+        activityBar={<div>AB</div>}
+        tabs={<div>TABS</div>}
+        panel={<div>PANEL</div>}
+      >
+        <div>EDITOR</div>
+      </Workbench>,
+    );
+    const main = container.querySelector('.vsc-workbench__main');
+    expect(main?.children[0].textContent).toBe('TABS');
+    expect(main?.querySelector('.vsc-workbench__editor')?.textContent).toBe('EDITOR');
+    expect(main?.querySelector('.vsc-workbench__panel')?.textContent).toBe('PANEL');
+  });
+
+  it('hides panel when omitted or null', () => {
+    const { container, rerender } = render(
+      <Workbench activityBar={<div>AB</div>}>
+        <div>EDITOR</div>
+      </Workbench>,
+    );
+    expect(container.querySelector('.vsc-workbench__panel')).toBeNull();
+    rerender(
+      <Workbench activityBar={<div>AB</div>} panel={null}>
+        <div>EDITOR</div>
+      </Workbench>,
+    );
+    expect(container.querySelector('.vsc-workbench__panel')).toBeNull();
+  });
 });

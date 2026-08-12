@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Workbench } from './Workbench';
@@ -173,5 +176,18 @@ describe('Workbench', () => {
       </Workbench>,
     );
     expect(container.querySelector('.vsc-workbench__sidebar')).toBeNull();
+  });
+
+  it('makes editor a fixed-height flex column that does not scroll itself', () => {
+    const css = readFileSync(
+      resolve(dirname(fileURLToPath(import.meta.url)), '../styles.css'),
+      'utf8',
+    );
+    expect(css).toMatch(
+      /\.vsc-workbench__editor\s*\{[^}]*display:\s*flex[^}]*flex-direction:\s*column[^}]*overflow:\s*hidden/s,
+    );
+    expect(css).not.toMatch(
+      /\.vsc-workbench__editor\s*\{[^}]*overflow:\s*auto/s,
+    );
   });
 });

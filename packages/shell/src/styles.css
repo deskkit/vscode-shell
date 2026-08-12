@@ -577,7 +577,9 @@ a:active {
 .vsc-workbench__editor {
   flex: 1;
   min-height: 0;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background: var(--vscode-editor-bg);
 }
 

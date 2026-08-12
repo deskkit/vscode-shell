@@ -7,10 +7,13 @@ Shared VS Code–style desktop chrome for Tauri + React apps.
 | Path | Name | Description |
 |------|------|-------------|
 | `packages/shell` | `@vscode-shell/ui` | Design tokens, theme helpers, Workbench chrome |
+| `packages/antd` | `@vscode-shell/antd` | Optional Ant Design `createAntTheme` + `--ant-*` CSS bridge |
+| `packages/flowbite` | `@vscode-shell/flowbite` | Optional Flowbite `createFlowbiteTheme` |
 | `apps/starter` | `starter` | Tauri + React demo / template |
 
 Design: [docs/superpowers/specs/2026-08-07-vscode-shell-design.md](docs/superpowers/specs/2026-08-07-vscode-shell-design.md)
 TitleBar: [docs/superpowers/specs/2026-08-07-titlebar-design.md](docs/superpowers/specs/2026-08-07-titlebar-design.md)
+Publish & theme bridges: [docs/superpowers/specs/2026-08-12-publish-and-theme-bridges-design.md](docs/superpowers/specs/2026-08-12-publish-and-theme-bridges-design.md)
 
 ## Develop
 
@@ -114,6 +117,72 @@ pnpm equivalent:
 `packages/shell` runs `prepare` → `build` on install (via `tsup`), so you do **not** need a prebuilt `dist` on GitHub. Ensure install scripts are enabled (`ignore-scripts` must be off). The consumer still provides `react` / `react-dom` (peerDependencies).
 
 Exact git URL syntax depends on your package manager; pnpm `github:…` / `git+…` with `path:` is preferred.
+
+## Optional theme bridges
+
+Install peers in the app (`antd`, `flowbite-react`) yourself.
+
+```bash
+pnpm add @vscode-shell/ui @vscode-shell/antd antd
+# and/or
+pnpm add @vscode-shell/ui @vscode-shell/flowbite flowbite-react
+```
+
+```tsx
+import { createAntTheme } from '@vscode-shell/antd'
+import { ConfigProvider } from 'antd'
+import '@vscode-shell/ui/styles.css'
+import '@vscode-shell/antd/styles.css'
+
+<ConfigProvider theme={createAntTheme()}>{/* … */}</ConfigProvider>
+```
+
+```tsx
+import { createFlowbiteTheme } from '@vscode-shell/flowbite'
+import { ThemeProvider } from 'flowbite-react'
+
+<ThemeProvider theme={createFlowbiteTheme()}>{/* … */}</ThemeProvider>
+```
+
+Do **not** expect ProTable / app layout CSS overrides from these packages — keep those in the application.
+
+### os-kit migration sketch
+
+1. Depend on `@vscode-shell/ui` / `antd` / `flowbite` at `0.2.0`.
+2. Replace local `antSettings.theme` with `createAntTheme()`.
+3. Replace local `customTheme` with `createFlowbiteTheme()`.
+4. Import `@vscode-shell/antd/styles.css`; keep structural CSS in the app.
+
+## Publish (manual)
+
+Prerequisites: npm login with rights to scope `@vscode-shell` (npmjs) **or** configure the private registry.
+
+```bash
+pnpm -r --filter "./packages/**" run build
+pnpm -r --filter "./packages/**" run test
+
+# from each package directory, or:
+pnpm --filter @vscode-shell/ui publish --access public
+pnpm --filter @vscode-shell/antd publish --access public
+pnpm --filter @vscode-shell/flowbite publish --access public
+```
+
+Then tag:
+
+```bash
+git tag v0.2.0
+git push origin v0.2.0
+```
+
+Git fallback (before/without npm):
+
+```json
+{
+  "@vscode-shell/ui": "github:deskkit/vscode-shell#v0.2.0&path:packages/shell",
+  "@vscode-shell/antd": "github:deskkit/vscode-shell#v0.2.0&path:packages/antd",
+  "@vscode-shell/flowbite": "github:deskkit/vscode-shell#v0.2.0&path:packages/flowbite"
+}
+```
 
 ## Optional Tailwind color bridge
 

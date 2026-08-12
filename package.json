@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "pnpm -r run build",
-    "test": "pnpm --filter @vscode-shell/ui test"
+    "test": "pnpm -r --filter \"./packages/**\" run test"
   },
   "engines": {
     "node": ">=20"

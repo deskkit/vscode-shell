@@ -1,0 +1,44 @@
+/* ── Ant Design 6 theme-aware CSS variables ── */
+:root {
+  --ant-color-text: var(--vscode-text-primary);
+  --ant-color-text-secondary: var(--vscode-text-secondary);
+  --ant-color-text-tertiary: var(--vscode-text-secondary);
+  --ant-color-text-quaternary: var(--vscode-text-secondary);
+  --ant-color-bg-container: var(--vscode-editor-bg);
+  --ant-color-bg-layout: var(--vscode-editor-bg);
+  --ant-color-bg-elevated: var(--vscode-sidebar-bg);
+  --ant-color-border: var(--vscode-border);
+  --ant-color-border-secondary: var(--vscode-border);
+  --ant-color-fill: var(--vscode-hover-bg);
+  --ant-color-fill-secondary: var(--vscode-sidebar-bg);
+  --ant-color-fill-tertiary: var(--vscode-sidebar-bg);
+  --ant-color-fill-quaternary: rgba(255,255,255,0.04);
+  --ant-color-link: #007acc;
+  --ant-color-primary: #007acc;
+  --ant-color-success: #4ade80;
+  --ant-color-error: #f87171;
+  --ant-color-warning: #eab308;
+  --ant-color-info: #007acc;
+}
+
+.dark {
+  --ant-color-text: var(--vscode-text-primary);
+  --ant-color-text-secondary: var(--vscode-text-secondary);
+  --ant-color-text-tertiary: var(--vscode-text-secondary);
+  --ant-color-text-quaternary: var(--vscode-text-secondary);
+  --ant-color-bg-container: var(--vscode-editor-bg);
+  --ant-color-bg-layout: var(--vscode-editor-bg);
+  --ant-color-bg-elevated: var(--vscode-sidebar-bg);
+  --ant-color-border: var(--vscode-border);
+  --ant-color-border-secondary: var(--vscode-border);
+  --ant-color-fill: var(--vscode-hover-bg);
+  --ant-color-fill-secondary: var(--vscode-sidebar-bg);
+  --ant-color-fill-tertiary: var(--vscode-sidebar-bg);
+  --ant-color-fill-quaternary: rgba(255,255,255,0.04);
+  --ant-color-link: #58a6ff;
+  --ant-color-primary: #007acc;
+  --ant-color-success: #4ade80;
+  --ant-color-error: #f87171;
+  --ant-color-warning: #eab308;
+  --ant-color-info: #58a6ff;
+}

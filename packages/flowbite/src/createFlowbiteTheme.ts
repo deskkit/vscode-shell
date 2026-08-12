@@ -62,7 +62,9 @@ const defaultInput = {
   },
 } as const;
 
-export function createFlowbiteTheme(options?: CreateFlowbiteThemeOptions) {
+export function createFlowbiteTheme(
+  options?: CreateFlowbiteThemeOptions,
+): ReturnType<typeof createTheme> {
   const input = {
     ...defaultInput,
     ...options?.overrides,

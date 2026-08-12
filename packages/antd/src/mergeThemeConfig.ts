@@ -1,10 +1,18 @@
 import type { ThemeConfig } from 'antd';
 
+function cloneThemeConfig(base: ThemeConfig): ThemeConfig {
+  return {
+    ...base,
+    token: base.token ? { ...base.token } : base.token,
+    components: base.components ? { ...base.components } : base.components,
+  };
+}
+
 export function mergeThemeConfig(
   base: ThemeConfig,
   overrides?: ThemeConfig,
 ): ThemeConfig {
-  if (!overrides) return base;
+  if (!overrides) return cloneThemeConfig(base);
 
   const components: ThemeConfig['components'] = { ...base.components };
   if (overrides.components) {

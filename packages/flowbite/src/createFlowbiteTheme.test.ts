@@ -16,7 +16,7 @@ describe('createFlowbiteTheme', () => {
         card: { root: { base: 'rounded-none' } },
       },
     });
-    expect(theme).toHaveProperty('card');
+    expect(theme.card?.root?.base).toBe('rounded-none');
     // default fileInput section still present
     expect(theme).toHaveProperty('fileInput');
   });

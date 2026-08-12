@@ -117,21 +117,28 @@ Exact git URL syntax depends on your package manager; pnpm `github:…` / `git+�
 
 ## Optional Tailwind color bridge
 
-Map app utility classes to the same CSS variables if desired (not required for chrome):
+Map app utility classes to the same CSS variables if desired (not required for chrome).
 
-```css
-/* Tailwind v4 @theme example */
-@theme {
-  --color-vscode-editor: var(--vscode-editor-bg);
-  --color-vscode-sidebar: var(--vscode-sidebar-bg);
-  --color-vscode-border: var(--vscode-border);
-  --color-vscode-text-primary: var(--vscode-text-primary);
-  --color-vscode-text-secondary: var(--vscode-text-secondary);
-  --color-vscode-highlight: var(--vscode-text-highlight);
-  --color-vscode-text-link: var(--vscode-text-link);
-  --color-vscode-hover: var(--vscode-hover-bg);
+Tokens are hex / rgba, so plain `var(--vscode-*)` in Tailwind **breaks opacity modifiers** (`border-vscode-border/30` etc.): the utility is omitted and borders fall back to `currentColor` (looks white in dark mode). Bridge with `color-mix` + `<alpha-value>` (Tailwind v3) or RGB channel tokens:
+
+```js
+// Tailwind v3 — theme.extend.colors
+const vscode = (cssVar) =>
+  `color-mix(in srgb, var(${cssVar}) calc(100% * <alpha-value>), transparent)`;
+
+{
+  'vscode-editor': vscode('--vscode-editor-bg'),
+  'vscode-sidebar': vscode('--vscode-sidebar-bg'),
+  'vscode-border': vscode('--vscode-border'),
+  'vscode-text-primary': vscode('--vscode-text-primary'),
+  'vscode-text-secondary': vscode('--vscode-text-secondary'),
+  'vscode-highlight': vscode('--vscode-text-highlight'),
+  'vscode-text-link': vscode('--vscode-text-link'),
+  'vscode-hover': vscode('--vscode-hover-bg'),
 }
 ```
+
+For Tailwind v4 `@theme`, prefer the same `color-mix(… <alpha-value> …)` pattern or space-separated RGB channel variables so `/α` utilities resolve.
 
 ## Library boundary
 

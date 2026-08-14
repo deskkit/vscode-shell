@@ -1,6 +1,6 @@
 {
   "name": "@vscode-shell/antd",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "description": "Ant Design theme bridge for @vscode-shell/ui tokens",
   "type": "module",
@@ -14,7 +14,9 @@
     },
     "./styles.css": "./dist/styles.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup && node ./scripts/copy-styles.mjs",
     "prepare": "npm run build",

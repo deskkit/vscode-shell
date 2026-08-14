@@ -1,6 +1,6 @@
 {
   "name": "@vscode-shell/flowbite",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "description": "Flowbite theme bridge for @vscode-shell/ui tokens",
   "type": "module",
@@ -13,7 +13,9 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "prepare": "npm run build",

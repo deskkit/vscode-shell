@@ -1,9 +1,10 @@
-/* ── Ant Design 6 theme-aware CSS variables ── */
+/* ── Ant Design theme-aware CSS variables ── */
 :root {
   --ant-color-text: var(--vscode-text-primary);
   --ant-color-text-secondary: var(--vscode-text-secondary);
   --ant-color-text-tertiary: var(--vscode-text-secondary);
   --ant-color-text-quaternary: var(--vscode-text-secondary);
+  --ant-color-text-light-solid: #ffffff;
   --ant-color-bg-container: var(--vscode-editor-bg);
   --ant-color-bg-layout: var(--vscode-editor-bg);
   --ant-color-bg-elevated: var(--vscode-sidebar-bg);
@@ -19,6 +20,26 @@
   --ant-color-error: #f87171;
   --ant-color-warning: #eab308;
   --ant-color-info: #007acc;
+  /* Button default — 暗色下避免 antd 派生出偏白边框 */
+  --ant-button-default-bg: var(--vscode-sidebar-bg);
+  --ant-button-default-color: var(--vscode-text-primary);
+  --ant-button-default-border-color: var(--vscode-input-border);
+  --ant-button-default-hover-bg: var(--vscode-hover-bg);
+  --ant-button-default-hover-color: #007acc;
+  --ant-button-default-hover-border-color: #007acc;
+  --ant-button-default-active-bg: var(--vscode-hover-bg);
+  --ant-button-default-active-color: #007acc;
+  --ant-button-default-active-border-color: #007acc;
+  --ant-button-primary-color: #ffffff;
+  /*
+   * antd 6 solid/primary 使用 --ant-btn-shadow（不是 --ant-button-*-shadow）。
+   * 默认 primaryShadow = 底部实色描边，暗色下常显成白边。
+   */
+  --ant-btn-shadow: none;
+  /* 禁用态边框/文字（Transfer 中间钮未激活 = disabled primary） */
+  --ant-color-border-disabled: var(--vscode-input-border);
+  --ant-color-text-disabled: var(--vscode-text-secondary);
+  --ant-color-bg-container-disabled: var(--vscode-sidebar-bg);
 }
 
 .dark {
@@ -26,6 +47,7 @@
   --ant-color-text-secondary: var(--vscode-text-secondary);
   --ant-color-text-tertiary: var(--vscode-text-secondary);
   --ant-color-text-quaternary: var(--vscode-text-secondary);
+  --ant-color-text-light-solid: #ffffff;
   --ant-color-bg-container: var(--vscode-editor-bg);
   --ant-color-bg-layout: var(--vscode-editor-bg);
   --ant-color-bg-elevated: var(--vscode-sidebar-bg);
@@ -41,4 +63,68 @@
   --ant-color-error: #f87171;
   --ant-color-warning: #eab308;
   --ant-color-info: #58a6ff;
+  --ant-button-default-bg: var(--vscode-sidebar-bg);
+  --ant-button-default-color: var(--vscode-text-primary);
+  --ant-button-default-border-color: var(--vscode-input-border);
+  --ant-button-default-hover-bg: var(--vscode-hover-bg);
+  --ant-button-default-hover-color: #4db8ff;
+  --ant-button-default-hover-border-color: #4db8ff;
+  --ant-button-default-active-bg: var(--vscode-hover-bg);
+  --ant-button-default-active-color: #4db8ff;
+  --ant-button-default-active-border-color: #4db8ff;
+  --ant-button-primary-color: #ffffff;
+  --ant-btn-shadow: none;
+  --ant-color-border-disabled: var(--vscode-input-border);
+  --ant-color-text-disabled: var(--vscode-text-secondary);
+  --ant-color-bg-container-disabled: var(--vscode-sidebar-bg);
+}
+
+/* cssinjs 会在 .ant-btn-color-primary 上重写 --ant-btn-shadow；再压一层 */
+.ant-btn.ant-btn-variant-solid,
+.ant-btn.ant-btn-color-primary,
+.ant-btn-primary {
+  --ant-btn-shadow: none;
+  box-shadow: none;
+}
+
+/*
+ * Transfer 操作钮写死 type=primary；未勾选时为 disabled primary。
+ * 对齐 default「取消」：侧栏底 + input 边框，而不是发白描边。
+ */
+.ant-btn-color-primary:disabled,
+.ant-btn-color-primary.ant-btn-disabled,
+.ant-btn-primary:disabled,
+.ant-btn-primary.ant-btn-disabled {
+  background: var(--vscode-sidebar-bg) !important;
+  border-color: var(--vscode-input-border) !important;
+  color: var(--vscode-text-secondary) !important;
+}
+.ant-btn-color-primary:disabled .anticon,
+.ant-btn-color-primary.ant-btn-disabled .anticon,
+.ant-btn-primary:disabled .anticon,
+.ant-btn-primary.ant-btn-disabled .anticon {
+  color: var(--vscode-text-secondary) !important;
+}
+
+/* Transfer / 列表选中行文字保持可读（底已用 selected-bg） */
+.ant-transfer-list-content-item-checked {
+  color: var(--vscode-text-primary);
+}
+
+/*
+ * Typography copyable：勿依赖全局 .anticon 染色（会破坏 primary 白图标）。
+ * 去掉全局规则后，复制钮会退化成近黑描边且贴字；这里单独补回链接色与间距。
+ */
+.ant-typography-copy {
+  color: #007acc !important;
+  margin-inline-start: 6px !important;
+}
+.ant-typography-copy:hover {
+  color: #4db8ff !important;
+}
+.ant-typography-copy .anticon {
+  color: inherit !important;
+}
+.dark .ant-typography-copy:hover {
+  color: #4db8ff !important;
 }

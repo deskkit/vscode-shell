@@ -2,6 +2,9 @@ import type { FC } from 'react';
 import type { SidebarItem, SidebarProps } from '../types';
 import { Scrollbar } from './Scrollbar';
 
+/** 分区标题与叶子项统一左内边距（不做树形逐级缩进） */
+const ITEM_PAD = 12;
+
 export const Sidebar: FC<SidebarProps> = ({
   title,
   items,
@@ -10,17 +13,20 @@ export const Sidebar: FC<SidebarProps> = ({
   width = 192,
   footer,
 }) => {
-  const renderItems = (list: SidebarItem[], depth = 0) =>
+  const renderItems = (list: SidebarItem[]) =>
     list.map((item) => {
       const hasChildren = Boolean(item.children?.length);
       if (hasChildren) {
         return (
           <div key={item.id} className="vsc-sidebar__group">
-            <div className="vsc-sidebar__group-label" style={{ paddingLeft: 12 + depth * 12 }}>
+            <div
+              className="vsc-sidebar__group-label"
+              style={{ paddingLeft: ITEM_PAD }}
+            >
               {item.icon}
               <span>{item.label}</span>
             </div>
-            {renderItems(item.children!, depth + 1)}
+            {renderItems(item.children!)}
           </div>
         );
       }
@@ -30,7 +36,7 @@ export const Sidebar: FC<SidebarProps> = ({
           key={item.id}
           type="button"
           className={`vsc-sidebar__item${isActive ? ' is-active' : ''}`}
-          style={{ paddingLeft: 12 + depth * 12 }}
+          style={{ paddingLeft: ITEM_PAD }}
           onClick={() => onChange(item.id)}
         >
           {item.icon}

@@ -29,6 +29,14 @@ describe('Sidebar', () => {
     expect(screen.getByRole('button', { name: 'Files' }).className).toContain('is-active');
   });
 
+  it('keeps group children at the same indent as sibling leaves', () => {
+    render(<Sidebar items={items} activeId="files" onChange={() => {}} />);
+    const leaf = screen.getByRole('button', { name: 'Files' });
+    const child = screen.getByRole('button', { name: 'Child' });
+    expect(leaf.style.paddingLeft).toBe('12px');
+    expect(child.style.paddingLeft).toBe('12px');
+  });
+
   it('renders footer slot', () => {
     render(
       <Sidebar

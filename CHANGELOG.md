@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.4] - 2026-08-17
+
+### Fixed (`@vscode-shell/ui`)
+
+- Sidebar group children use the same left padding as sibling leaves (section headers, not tree indent)
+
+### Fixed (`@vscode-shell/antd` `0.2.3`)
+
+- Button: kill primary bottom shadow / white lip; map disabled / default borders for dark theme
+- Transfer / list selection: `controlItemBgActive` → `--vscode-selected-bg`
+- Typography copy icon: restore link color and spacing without global `.anticon` tint
+
+Published: `@vscode-shell/ui@0.2.4`, `@vscode-shell/antd@0.2.3`. `@vscode-shell/flowbite` remains `0.2.2`.
+
 ## [0.2.3] - 2026-08-17
 
 ### Added

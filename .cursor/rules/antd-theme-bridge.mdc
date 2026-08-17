@@ -1,0 +1,24 @@
+---
+description: @vscode-shell/antd 主题桥维护约定与暗色坑
+globs: packages/antd/**
+alwaysApply: false
+---
+
+# @vscode-shell/antd 维护
+
+## 职责
+
+- `createAntTheme`：`ThemeConfig` token + components
+- `styles.css`：`--ant-*` ↔ `--vscode-*`；仅在 cssinjs 不够时补关键按钮/禁用态规则
+- **不要**塞 ProTable / 业务布局结构 CSS（那是消费方的事）
+
+## 暗色 + CSS var 注意
+
+- antd 无法从 `var(--vscode-*)` 正确派生时，**显式钉死**（如 `defaultBorderColor`、`controlItemBgActive`）
+- 主按钮阴影变量名是 `--ant-btn-shadow`，不是 `--ant-button-primary-shadow`
+- Transfer 操作钮始终 `type="primary"` → 必须配好 disabled 表面色
+- 选中行用 `controlItemBgActive` → `var(--vscode-selected-bg)`，勿留默认浅蓝底
+
+## 改完
+
+跑 `npm run test && npm run build`；提醒消费方同步 `file:` / 重装依赖。

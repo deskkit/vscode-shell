@@ -1,6 +1,6 @@
 {
   "name": "@vscode-shell/antd",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "MIT",
   "description": "Ant Design theme bridge for @vscode-shell/ui tokens",
   "type": "module",

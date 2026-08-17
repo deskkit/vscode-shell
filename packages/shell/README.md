@@ -57,6 +57,18 @@ import '@vscode-shell/ui/styles.css';
 
 Tokens live as CSS variables (`--vscode-editor-bg`, `--vscode-text-primary`, …). Light defaults are on `:root`; dark overrides under `.dark`.
 
+## InfiniteScroll
+
+Wraps `Scrollbar` (default vertical). Calls `onLoadMore` when the viewport reaches the end and `hasMore` is true.
+
+```tsx
+import { InfiniteScroll } from '@vscode-shell/ui';
+
+<InfiniteScroll hasMore={hasMore} onLoadMore={loadMore}>
+  {rows}
+</InfiniteScroll>
+```
+
 ## Theme helpers
 
 | API | Description |

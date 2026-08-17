@@ -7,6 +7,7 @@ export { PageTabs } from './components/PageTabs';
 export { StatusBar } from './components/StatusBar';
 export { TitleBar } from './components/TitleBar';
 export { Scrollbar } from './components/Scrollbar';
+export { InfiniteScroll } from './components/InfiniteScroll';
 export type {
   ActivityItem,
   ActivityBarProps,
@@ -19,4 +20,5 @@ export type {
   WorkbenchProps,
   ScrollbarOrientation,
   ScrollbarProps,
+  InfiniteScrollProps,
 } from './types';

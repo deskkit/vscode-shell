@@ -82,4 +82,16 @@ export type ScrollbarProps = {
   hideDelayMs?: number;
   /** Recompute metrics when this value changes (e.g. item list identity). */
   contentKey?: unknown;
+  /** Called when the viewport is within `reachEndPx` of the end. May fire while parked at the end. */
+  onReachEnd?: () => void;
+  /** Distance from the end that counts as reached. Default 80. */
+  reachEndPx?: number;
+};
+
+export type InfiniteScrollProps = Omit<ScrollbarProps, 'onReachEnd'> & {
+  hasMore: boolean;
+  loading?: boolean;
+  onLoadMore: () => void;
+  endMessage?: ReactNode;
+  loadingMessage?: ReactNode;
 };

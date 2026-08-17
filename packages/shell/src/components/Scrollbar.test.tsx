@@ -64,4 +64,51 @@ describe('Scrollbar', () => {
     expect(container.querySelector('.vsc-scrollbar__track')).not.toHaveClass('is-visible');
     vi.useRealTimers();
   });
+
+  it('calls onReachEnd when scrolled near the end', async () => {
+    const onReachEnd = vi.fn();
+    const { container } = render(
+      <Scrollbar orientation="vertical" onReachEnd={onReachEnd}>
+        <div style={{ height: 400 }}>tall</div>
+      </Scrollbar>,
+    );
+    const viewport = container.querySelector('.vsc-scrollbar__viewport') as HTMLDivElement;
+    mockOverflow(viewport, 'vertical');
+    viewport.scrollTop = 160;
+    fireEvent.scroll(viewport);
+    await waitFor(() => {
+      expect(onReachEnd).toHaveBeenCalled();
+    });
+  });
+
+  it('calls onReachEnd when content does not overflow', async () => {
+    const onReachEnd = vi.fn();
+    const { container } = render(
+      <Scrollbar orientation="vertical" onReachEnd={onReachEnd}>
+        <div>short</div>
+      </Scrollbar>,
+    );
+    const viewport = container.querySelector('.vsc-scrollbar__viewport') as HTMLDivElement;
+    Object.defineProperty(viewport, 'clientHeight', { configurable: true, value: 80 });
+    Object.defineProperty(viewport, 'scrollHeight', { configurable: true, value: 40 });
+    Object.defineProperty(viewport, 'scrollTop', { configurable: true, writable: true, value: 0 });
+    fireEvent.scroll(viewport);
+    await waitFor(() => {
+      expect(onReachEnd).toHaveBeenCalled();
+    });
+  });
+
+  it('does not call onReachEnd when far from the end', async () => {
+    const onReachEnd = vi.fn();
+    const { container } = render(
+      <Scrollbar orientation="vertical" onReachEnd={onReachEnd}>
+        <div style={{ height: 400 }}>tall</div>
+      </Scrollbar>,
+    );
+    const viewport = container.querySelector('.vsc-scrollbar__viewport') as HTMLDivElement;
+    mockOverflow(viewport, 'vertical');
+    viewport.scrollTop = 0;
+    fireEvent.scroll(viewport);
+    expect(onReachEnd).not.toHaveBeenCalled();
+  });
 });

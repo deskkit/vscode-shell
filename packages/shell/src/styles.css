@@ -364,6 +364,13 @@ a:active {
   background: var(--vscode-scrollbar-thumb-hover);
 }
 
+.vsc-infinite-scroll__status {
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--vscode-text-secondary);
+}
+
 .vsc-page-tabs__tab {
   display: flex;
   align-items: center;

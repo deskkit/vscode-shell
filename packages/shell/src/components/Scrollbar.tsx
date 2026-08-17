@@ -45,10 +45,16 @@ export const Scrollbar: FC<ScrollbarProps> = ({
   viewportClassName,
   hideDelayMs = DEFAULT_HIDE_MS,
   contentKey,
+  onReachEnd,
+  reachEndPx = 80,
 }) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const hideTimerRef = useRef<number | null>(null);
   const draggingRef = useRef(false);
+  const onReachEndRef = useRef(onReachEnd);
+  onReachEndRef.current = onReachEnd;
+  const reachEndPxRef = useRef(reachEndPx);
+  reachEndPxRef.current = reachEndPx;
   const [visible, setVisible] = useState(false);
   const [overflow, setOverflow] = useState<OverflowState>({
     needed: false,
@@ -82,6 +88,10 @@ export const Scrollbar: FC<ScrollbarProps> = ({
     if (!el) return;
     const { scrollPos, scrollSize, clientSize } = readMetrics(el, orientation);
     const needed = scrollSize > clientSize + 1;
+    const remaining = scrollSize - clientSize - scrollPos;
+    if ((scrollSize > 0 || clientSize > 0) && remaining <= reachEndPxRef.current) {
+      onReachEndRef.current?.();
+    }
     if (!needed) {
       setOverflow({ needed: false, thumbOffset: 0, thumbSize: 0 });
       setVisible(false);

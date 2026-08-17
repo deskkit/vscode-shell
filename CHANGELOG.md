@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `InfiniteScroll` — wrap `Scrollbar`, load more when the viewport reaches the end
+- `Scrollbar` `onReachEnd` / `reachEndPx`
+
 ## [0.2.2] - 2026-08-14
 
 ### Added

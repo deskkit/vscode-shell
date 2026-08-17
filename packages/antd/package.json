@@ -1,6 +1,6 @@
 {
   "name": "@vscode-shell/antd",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "description": "Ant Design theme bridge for @vscode-shell/ui tokens",
   "type": "module",
@@ -15,7 +15,8 @@
     "./styles.css": "./dist/styles.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "tsup && node ./scripts/copy-styles.mjs",
@@ -28,7 +29,7 @@
     "url": "git+https://github.com/deskkit/vscode-shell.git",
     "directory": "packages/antd"
   },
-  "homepage": "https://github.com/deskkit/vscode-shell#readme",
+  "homepage": "https://github.com/deskkit/vscode-shell/tree/main/packages/antd#readme",
   "bugs": {
     "url": "https://github.com/deskkit/vscode-shell/issues"
   },

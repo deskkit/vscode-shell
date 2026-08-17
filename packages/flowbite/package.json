@@ -1,6 +1,6 @@
 {
   "name": "@vscode-shell/flowbite",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "description": "Flowbite theme bridge for @vscode-shell/ui tokens",
   "type": "module",
@@ -14,7 +14,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "tsup",
@@ -27,7 +28,7 @@
     "url": "git+https://github.com/deskkit/vscode-shell.git",
     "directory": "packages/flowbite"
   },
-  "homepage": "https://github.com/deskkit/vscode-shell#readme",
+  "homepage": "https://github.com/deskkit/vscode-shell/tree/main/packages/flowbite#readme",
   "bugs": {
     "url": "https://github.com/deskkit/vscode-shell/issues"
   },

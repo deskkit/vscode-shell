@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-08-17
+
 ### Added
 
 - `InfiniteScroll` — wrap `Scrollbar`, load more when the viewport reaches the end
 - `Scrollbar` `onReachEnd` / `reachEndPx`
+
+Only `@vscode-shell/ui` is published at `0.2.3`; `@vscode-shell/antd` and `@vscode-shell/flowbite` remain `0.2.2`.
 
 ## [0.2.2] - 2026-08-14
 
@@ -40,7 +44,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `@vscode-shell/ui` version aligned to `0.2.0` for synchronized releases (no chrome API break)
 
-[Unreleased]: https://github.com/deskkit/vscode-shell/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/deskkit/vscode-shell/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/deskkit/vscode-shell/compare/v0.2.1...v0.2.3
 [0.2.2]: https://github.com/deskkit/vscode-shell/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/deskkit/vscode-shell/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/deskkit/vscode-shell/releases/tag/v0.2.0

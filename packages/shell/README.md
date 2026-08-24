@@ -57,6 +57,22 @@ import '@vscode-shell/ui/styles.css';
 
 Tokens live as CSS variables (`--vscode-editor-bg`, `--vscode-text-primary`, …). Light defaults are on `:root`; dark overrides under `.dark`.
 
+## New primitives (Tailwind at build time)
+
+Chrome (Workbench, bars, Scrollbar) stays hand-written `.vsc-*` CSS.
+
+New shared controls are authored with Tailwind 4 utilities in this package and compiled into `styles.css` at build time. Apps still import only `@vscode-shell/ui/styles.css`. The package does not enable Tailwind preflight and does not use the Tailwind color palette — use `var(--vscode-*)`.
+
+### ResizeHandle
+
+Splitter. `direction="row"` is a horizontal bar (drag on Y). `direction="column"` is a vertical bar (drag on X). `onDrag` receives a pixel delta.
+
+```tsx
+import { ResizeHandle } from '@vscode-shell/ui';
+
+<ResizeHandle direction="row" onDrag={(delta) => setHeight((h) => h + delta)} />
+```
+
 ## InfiniteScroll
 
 Wraps `Scrollbar` (default vertical). Calls `onLoadMore` when the viewport reaches the end and `hasMore` is true.
@@ -84,6 +100,7 @@ Window drag regions and custom window controls stay in the **application** (see 
 
 - Repo: https://github.com/deskkit/vscode-shell
 - Design: [vscode-shell design](https://github.com/deskkit/vscode-shell/blob/main/docs/superpowers/specs/2026-08-07-vscode-shell-design.md)
+- Tailwind primitives: [build-time Tailwind + ResizeHandle](https://github.com/deskkit/vscode-shell/blob/main/docs/superpowers/specs/2026-08-21-tailwind-primitives-design.md)
 
 ## License
 

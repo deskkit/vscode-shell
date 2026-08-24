@@ -14,6 +14,7 @@ Shared VS Code–style desktop chrome for Tauri + React apps.
 Design: [docs/superpowers/specs/2026-08-07-vscode-shell-design.md](docs/superpowers/specs/2026-08-07-vscode-shell-design.md)
 TitleBar: [docs/superpowers/specs/2026-08-07-titlebar-design.md](docs/superpowers/specs/2026-08-07-titlebar-design.md)
 Publish & theme bridges: [docs/superpowers/specs/2026-08-12-publish-and-theme-bridges-design.md](docs/superpowers/specs/2026-08-12-publish-and-theme-bridges-design.md)
+Tailwind primitives: [docs/superpowers/specs/2026-08-21-tailwind-primitives-design.md](docs/superpowers/specs/2026-08-21-tailwind-primitives-design.md)
 
 ## Develop
 
@@ -148,39 +149,39 @@ Do **not** expect ProTable / app layout CSS overrides from these packages — ke
 
 ### os-kit migration sketch
 
-1. Depend on `@vscode-shell/ui` / `antd` / `flowbite` at `0.2.0`.
+1. Depend on `@vscode-shell/ui` / `antd` / `flowbite` (latest published; ui is currently `0.3.0`).
 2. Replace local `antSettings.theme` with `createAntTheme()`.
 3. Replace local `customTheme` with `createFlowbiteTheme()`.
 4. Import `@vscode-shell/antd/styles.css`; keep structural CSS in the app.
 
 ## Publish (manual)
 
-Prerequisites: npm login with rights to scope `@vscode-shell` (npmjs) **or** configure the private registry.
+Prerequisites: npm login with rights to scope `@vscode-shell` (npmjs) **or** configure the private registry. Default registry in this environment may point at a Nexus group — publish with `--registry https://registry.npmjs.org`.
 
 ```bash
 pnpm -r --filter "./packages/**" run build
 pnpm -r --filter "./packages/**" run test
 
 # from each package directory, or:
-pnpm --filter @vscode-shell/ui publish --access public
-pnpm --filter @vscode-shell/antd publish --access public
-pnpm --filter @vscode-shell/flowbite publish --access public
+pnpm --filter @vscode-shell/ui publish --access public --registry https://registry.npmjs.org
+pnpm --filter @vscode-shell/antd publish --access public --registry https://registry.npmjs.org
+pnpm --filter @vscode-shell/flowbite publish --access public --registry https://registry.npmjs.org
 ```
 
-Then tag:
+Then tag (match the packages you actually published; ui-only releases use the ui version):
 
 ```bash
-git tag v0.2.0
-git push origin v0.2.0
+git tag v0.3.0
+git push origin v0.3.0
 ```
 
 Git fallback (before/without npm):
 
 ```json
 {
-  "@vscode-shell/ui": "github:deskkit/vscode-shell#v0.2.0&path:packages/shell",
-  "@vscode-shell/antd": "github:deskkit/vscode-shell#v0.2.0&path:packages/antd",
-  "@vscode-shell/flowbite": "github:deskkit/vscode-shell#v0.2.0&path:packages/flowbite"
+  "@vscode-shell/ui": "github:deskkit/vscode-shell#v0.3.0&path:packages/shell",
+  "@vscode-shell/antd": "github:deskkit/vscode-shell#v0.2.3&path:packages/antd",
+  "@vscode-shell/flowbite": "github:deskkit/vscode-shell#v0.2.2&path:packages/flowbite"
 }
 ```
 

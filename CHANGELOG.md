@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-08-24
+
+### Added (`@vscode-shell/ui`)
+
+- Tailwind 4 build pipeline for new shared controls: utilities compile into `dist/styles.css` (no preflight; colors stay on `var(--vscode-*)`)
+- `ResizeHandle` — pointer-driven splitter (`direction`: `row` | `column`, `onDrag` delta in px)
+
+Existing Workbench chrome (`.vsc-*`) is unchanged. Consumers still import only `@vscode-shell/ui/styles.css`.
+
+Published: `@vscode-shell/ui@0.3.0`. `@vscode-shell/antd` remains `0.2.3`; `@vscode-shell/flowbite` remains `0.2.2`.
+
 ## [0.2.4] - 2026-08-17
 
 ### Fixed (`@vscode-shell/ui`)
@@ -58,7 +69,9 @@ Only `@vscode-shell/ui` is published at `0.2.3`; `@vscode-shell/antd` and `@vsco
 
 - `@vscode-shell/ui` version aligned to `0.2.0` for synchronized releases (no chrome API break)
 
-[Unreleased]: https://github.com/deskkit/vscode-shell/compare/v0.2.3...HEAD
+[Unreleased]: https://github.com/deskkit/vscode-shell/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/deskkit/vscode-shell/releases/tag/v0.3.0
+[0.2.4]: https://github.com/deskkit/vscode-shell/compare/v0.2.3...v0.2.4
 [0.2.3]: https://github.com/deskkit/vscode-shell/compare/v0.2.1...v0.2.3
 [0.2.2]: https://github.com/deskkit/vscode-shell/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/deskkit/vscode-shell/compare/v0.2.0...v0.2.1

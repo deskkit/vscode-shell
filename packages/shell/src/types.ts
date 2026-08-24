@@ -95,3 +95,14 @@ export type InfiniteScrollProps = Omit<ScrollbarProps, 'onReachEnd'> & {
   endMessage?: ReactNode;
   loadingMessage?: ReactNode;
 };
+
+export type ResizeHandleDirection = 'row' | 'column';
+
+export type ResizeHandleProps = {
+  direction: ResizeHandleDirection;
+  onDrag: (delta: number) => void;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+  thickness?: number;
+  className?: string;
+};

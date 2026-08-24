@@ -8,6 +8,7 @@ export { StatusBar } from './components/StatusBar';
 export { TitleBar } from './components/TitleBar';
 export { Scrollbar } from './components/Scrollbar';
 export { InfiniteScroll } from './components/InfiniteScroll';
+export { ResizeHandle } from './components/ResizeHandle';
 export type {
   ActivityItem,
   ActivityBarProps,
@@ -21,4 +22,6 @@ export type {
   ScrollbarOrientation,
   ScrollbarProps,
   InfiniteScrollProps,
+  ResizeHandleDirection,
+  ResizeHandleProps,
 } from './types';
